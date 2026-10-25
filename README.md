@@ -1,29 +1,30 @@
-# Detect Malicious Users Using Metric Learning
+# Detect Malicious Users Using Metric Learning — Educational Reconstruction
 
-## Project Overview
-This project explores the detection of professional malicious users in e-commerce recommender systems using metric learning and unsupervised learning techniques.
+This repository contains a **simplified, newly written demonstration**, inspired by the academic presentation *Detect Professional Malicious User with Metric Learning in Recommender Systems*. **It is not the original project source code and does not reproduce the paper's MMD model or reported results.**
 
-## Technologies and Concepts
-- Machine Learning
-- Metric Learning
-- Recurrent Neural Networks (RNN)
-- Sentiment Analysis
-- Unsupervised Learning
-- Clustering
+## What it demonstrates
 
-## Methodology
-1. Analyze user ratings and reviews.
-2. Generate sentiment scores using an RNN-based approach.
-3. Create user behavior profiles.
-4. Apply metric learning-based clustering to identify suspicious users.
+- Rating and review ingestion (`user_id`, `rating`, `review`)
+- Simple **lexicon-based** review sentiment (not an RNN)
+- User-level behavior profiles and rating/review disagreement
+- Unsupervised covariance-based Mahalanobis metric transformation (whitening)
+- DBSCAN clustering and heuristic suspicious-user flags
 
-## Applications
-- E-commerce fraud detection
-- Recommender system security
-- Suspicious user behavior analysis
+## Run
 
-## Project Documentation
-See the uploaded mini-project presentation for architecture, methodology, and results.
+```bash
+pip install -r requirements.txt
+python train.py
+```
 
-## Note
-This README describes the project methodology presented in the academic presentation. Source code and reproducible experiments are not included unless uploaded separately.
+This generates `results.csv` using built-in **synthetic example data**. To use your own CSV:
+
+```bash
+python train.py --input your_reviews.csv --output results.csv
+```
+
+Required CSV columns: `user_id`, `rating` (1–5), `review`.
+
+## Limitations
+
+The lexicon sentiment approach is deliberately simple and may fail on sarcasm, negation, and complex language. Flags are **not ground-truth labels or proof of malicious behavior**. This example has no benchmark evaluation, no attention mechanism, and no modified RNN. For a faithful reproduction, obtain the original dataset, code, training details, and evaluation protocol.
